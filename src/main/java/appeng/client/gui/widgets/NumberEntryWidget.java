@@ -236,7 +236,7 @@ public class NumberEntryWidget implements ICompositeWidget {
 
 
         buttons.add(Button.builder(Component.literal("x" + 2), btn -> multiQtr(2))
-                .bounds(left, top - 20, 40, 20).build());
+                .bounds(left, top + 20, 30, 20).build());
 
 
 
