@@ -337,12 +337,11 @@ public class NumberEntryWidget implements ICompositeWidget {
         if (divisor <= 0) {
             return;
         }
-        var currentValue = getValueInternal().orElse(BigDecimal.ONE).multiply(1000).longValue();
-        setValueInternal(newValue);
+        var currentValue = getValueInternal().orElse(BigDecimal.ONE).multiply(BigDecimal.valueOf(1000)).longValue();
         if (currentValue % divisor != 0) {
             return;
         }
-        var newValue = BigDecimal.valueOf(current / divisor / 1000);
+        var newValue = BigDecimal.valueOf(currentValue / divisor / 1000);
         setValueInternal(newValue);
     }
 
