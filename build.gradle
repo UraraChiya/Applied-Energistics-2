@@ -25,7 +25,7 @@ buildscript {
 plugins {
     id "net.neoforged.gradle"
     id "maven-publish"
-    id "com.diffplug.spotless"
+    // id "com.diffplug.spotless"
     id "com.github.johnrengelman.shadow"
     id "de.undercouch.download"
 }
@@ -493,34 +493,34 @@ publishing {
 
 /////////////
 // Spotless
-spotless {
+// spotless {
 
-    java {
-        target 'src/*/java/appeng/**/*.java'
+//     java {
+//         target 'src/*/java/appeng/**/*.java'
 
-        endWithNewline()
-        indentWithSpaces()
-        removeUnusedImports()
-        toggleOffOn()
-        eclipse().configFile 'codeformat/codeformat.xml'
-        importOrderFile 'codeformat/ae2.importorder'
+//         endWithNewline()
+//         indentWithSpaces()
+//         removeUnusedImports()
+//         toggleOffOn()
+//         eclipse().configFile 'codeformat/codeformat.xml'
+//         importOrderFile 'codeformat/ae2.importorder'
 
-        // courtesy of diffplug/spotless#240
-        // https://github.com/diffplug/spotless/issues/240#issuecomment-385206606
-        custom 'noWildcardImports', {
-            if (it.contains('*;\n')) {
-                throw new Error('No wildcard imports allowed')
-            }
-        }
-        bumpThisNumberIfACustomStepChanges(1)
-    }
+//         // courtesy of diffplug/spotless#240
+//         // https://github.com/diffplug/spotless/issues/240#issuecomment-385206606
+//         custom 'noWildcardImports', {
+//             if (it.contains('*;\n')) {
+//                 throw new Error('No wildcard imports allowed')
+//             }
+//         }
+//         bumpThisNumberIfACustomStepChanges(1)
+//     }
 
-    format 'json', {
-        target 'src/*/resources/**/*.json'
-        targetExclude 'src/generated/resources/**'
-        prettier().config(['parser': 'json'])
-    }
-}
+//     format 'json', {
+//         target 'src/*/resources/**/*.json'
+//         targetExclude 'src/generated/resources/**'
+//         prettier().config(['parser': 'json'])
+//     }
+// }
 
 ////////////////
 // Crowdin
