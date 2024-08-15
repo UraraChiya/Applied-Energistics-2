@@ -192,7 +192,7 @@ public class NumberEntryWidget implements ICompositeWidget {
         int left = bounds.getX() + this.bounds.getX();
         int top = bounds.getY() + this.bounds.getY();
 
-        List<Button> buttons = new ArrayList<>(9);
+        List<Button> buttons = new ArrayList<>(9 + 1);
 
         buttons.add(
                 Button.builder(makeLabel(PLUS, STEPS[0]), btn -> addQty(STEPS[0])).bounds(left, top, 22, 20).build());
@@ -231,6 +231,15 @@ public class NumberEntryWidget implements ICompositeWidget {
 
         // Add the rest to the tab order
         buttons.subList(4, buttons.size()).forEach(addWidget);
+
+
+
+
+        buttons.add(Button.builder(Component.literal("x" + 2), btn -> multiQtr(2))
+                .bounds(left, top - 20, 40, 20).build());
+
+
+
 
         this.buttons = buttons;
 
@@ -308,6 +317,32 @@ public class NumberEntryWidget implements ICompositeWidget {
         } else if (currentValue.compareTo(BigDecimal.ONE) == 0 && delta > 0 && delta % 10 == 0) {
             newValue = newValue.subtract(BigDecimal.ONE);
         }
+        setValueInternal(newValue);
+    }
+
+    private void multiQtr(long multiplier) {
+        if (multiplier <= 0) {
+            return;
+        }
+        var currentValue = getValueInternal().orElse(BigDecimal.ONE);
+        var newValue = currentValue.multiply(BigDecimal.valueOf(multiplier));
+        var maximum = convertToInternalValue(this.maxValue).setScale(0, RoundingMode.FLOOR);
+        if (newValue.compareTo(maximum) > 0) {
+            newValue = currentValue;
+        }
+        setValueInternal(newValue);
+    }
+
+    private void diviQtr(long divisor) {
+        if (divisor <= 0) {
+            return;
+        }
+        var currentValue = getValueInternal().orElse(BigDecimal.ONE).multiply(1000).longValue();
+        setValueInternal(newValue);
+        if (currentValue % divisor != 0) {
+            return;
+        }
+        var newValue = BigDecimal.valueOf(current / divisor / 1000);
         setValueInternal(newValue);
     }
 
